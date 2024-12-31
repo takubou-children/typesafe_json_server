@@ -5,4 +5,10 @@ interface Field {
   type: ValueType;
   value: string;
 }
-export type { Field, ValueType };
+
+type JsonType = {
+  //eslint-disable-next-line
+  [key: string]: any[];
+};
+
+export type { Field, ValueType, JsonType };

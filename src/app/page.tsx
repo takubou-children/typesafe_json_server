@@ -20,14 +20,14 @@ import {
 import { PlusIcon, DeleteIcon } from "@yamada-ui/lucide";
 import { useField } from "./hooks/useField";
 import { useGeneratedJson } from "./hooks/useGeneratedJson";
-
+import type { JsonType } from "@/app/types/field";
 export default function FlexibleJsonGenerator() {
   const [arrayName, setArrayName] = useState("items");
   const { fields, addField, removeField, updateField } = useField();
   const { generatedJson, setGeneratedJson } = useGeneratedJson();
   const generateJson = () => {
     //eslint-disable-next-line
-    const jsonObject: { [key: string]: any[] } = {
+    const jsonObject: JsonType = {
       [arrayName]: [
         fields.reduce((acc, field) => {
           if (field.key) {
@@ -46,28 +46,21 @@ export default function FlexibleJsonGenerator() {
     setGeneratedJson(JSON.stringify(jsonObject, null, 2));
   };
 
-  const downloadJson = useCallback(() => {
-    const jsonObject = {
-      [arrayName]: [
-        fields.reduce((acc, field) => {
-          if (field.key) {
-            acc[field.key] = field.value;
-          }
-          return acc;
-        }, {} as Record<string, any>),
-      ],
-    };
-    const jsonString = JSON.stringify(jsonObject, null, 2);
-    const blob = new Blob([jsonString], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${arrayName}.json`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  }, [arrayName, fields]);
+  const downloadJson = useCallback(
+    (jsonObject: JsonType) => {
+      const jsonString = JSON.stringify(jsonObject, null, 2);
+      const blob = new Blob([jsonString], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${arrayName}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    },
+    [arrayName, fields]
+  );
 
   return (
     <Box maxW='container.xl' mx='auto' py={8}>
