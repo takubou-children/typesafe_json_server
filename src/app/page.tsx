@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, SetStateAction } from "react";
 import {
   Button,
   Input,
@@ -18,74 +18,15 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { PlusIcon, DeleteIcon } from "@yamada-ui/lucide";
+import { useField } from "./hooks/useField";
+import { useGeneratedJson } from "./hooks/useGeneratedJson";
 
-type ValueType = "string" | "number" | "boolean" | "date" | "time" | "datetime";
-
-interface Field {
-  key: string;
-  type: ValueType;
-  value: string;
-}
-
-const generateSampleValue = (type: ValueType): string => {
-  switch (type) {
-    case "string":
-      return "text";
-    case "number":
-      return "42";
-    case "boolean":
-      return "true";
-    case "date":
-      return "2024-12-24";
-    case "time":
-      return "14:30:00";
-    case "datetime":
-      return "2024-12-24T14:30:00";
-    default:
-      return "";
-  }
-};
-const generateRandomString = (length: number): string => {
-  const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  let result = "";
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-};
 export default function FlexibleJsonGenerator() {
   const [arrayName, setArrayName] = useState("items");
-  const [fields, setFields] = useState<Field[]>([
-    { key: "id", type: "string", value: generateRandomString(8) },
-  ]);
-  const [generatedJson, setGeneratedJson] = useState("");
-
-  const addField = () => {
-    setFields([
-      ...fields,
-      { key: "", type: "string", value: generateSampleValue("string") },
-    ]);
-  };
-
-  const removeField = (index: number) => {
-    if (index === 0) return; // Prevent removing the 'id' field
-    const newFields = fields.filter((_, i) => i !== index);
-    setFields(newFields);
-  };
-
-  const updateField = (index: number, field: "key" | "type", value: string) => {
-    const newFields = [...fields];
-    if (field === "type") {
-      newFields[index].type = value as ValueType;
-      newFields[index].value = generateSampleValue(value as ValueType);
-    } else {
-      newFields[index][field] = value;
-    }
-    setFields(newFields);
-  };
-
+  const { fields, addField, removeField, updateField } = useField();
+  const { generatedJson, setGeneratedJson } = useGeneratedJson();
   const generateJson = () => {
+    //eslint-disable-next-line
     const jsonObject: { [key: string]: any[] } = {
       [arrayName]: [
         fields.reduce((acc, field) => {
@@ -140,7 +81,9 @@ export default function FlexibleJsonGenerator() {
               <Text>配列名：</Text>
               <Input
                 value={arrayName}
-                onChange={(e) => setArrayName(e.target.value)}
+                onChange={(e: { target: { value: SetStateAction<string> } }) =>
+                  setArrayName(e.target.value)
+                }
                 placeholder='配列名を入力'
               />
             </HStack>
