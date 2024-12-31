@@ -13,15 +13,19 @@
 
 ## アプリのフロー
 
-- `json-server`で利用するための json ファイルを UI 上から方安全な状態で生成
-- これに応じた zod スキーマも生成
-- `json-server`で利用する API のレスポンスやリクエスト body、リクエスト param などの zod スキーマもあらかじめ生成
+- json-server で利用するための json ファイルを UI 上から方安全な状態で生成
+- json-server の起動
+- json に応じた zod スキーマも生成
+- json-server で利用する API のレスポンスやリクエスト body、リクエスト param などの zod スキーマもあらかじめ生成
+- 上記の zod スキーマを使用した react-hook-form のコンポーネントもあらかじめ生成
+- admin 用の管理テーブル/CRUD フォームの作成
 
 ## スコープ外
 
 - json-server がサポートしていない機能全般
   - マイグレーション機能
   - server 側での型安全性の担保...etc
+- コンポーネントのスタイリング
 
 ## 決まっていないこと
 
