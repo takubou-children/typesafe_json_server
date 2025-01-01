@@ -1,6 +1,4 @@
-type JSONValue = string | number | boolean | null | JSONObject | JSONArray;
-type JSONObject = { [key: string]: JSONValue };
-type JSONArray = JSONValue[];
+import { JSONObject, JSONValue } from "@/app/types/json";
 
 export function generateZodSchemas(json: JSONObject): string {
   const parseValue = (value: JSONValue): string => {
