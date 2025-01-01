@@ -87,14 +87,7 @@ export default function FlexibleJsonGenerator() {
         </CardBody>
         <CardFooter flexDirection='column' alignItems='stretch'>
           <HStack mb={4}>
-            <Button
-              onClick={generateJson}
-              disabled={
-                arrayName.length === 0 || fields.some((field) => !field.key)
-              }
-              colorScheme='purple'
-              flex={1}
-            >
+            <Button onClick={generateJson} colorScheme='purple' flex={1}>
               JSONを生成
             </Button>
             <DownloadJson generatedJson={generatedJson} arrayName={arrayName} />
