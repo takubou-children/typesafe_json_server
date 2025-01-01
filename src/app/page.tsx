@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, SetStateAction } from "react";
+import { SetStateAction } from "react";
 import {
   Button,
   Input,
@@ -18,33 +18,13 @@ import {
 import { PlusIcon } from "@yamada-ui/lucide";
 import { useField } from "./hooks/useField";
 import { useGeneratedJson } from "./hooks/useGeneratedJson";
-import type { JsonType } from "@/app/types/field";
 import { DownloadJson } from "./components/DownloadJson";
 import { JsonField } from "./components/JsonField";
+import { useArrayName } from "./hooks/useArrayName";
 export default function FlexibleJsonGenerator() {
-  const [arrayName, setArrayName] = useState("items");
+  const { arrayName, handleArrayNameChange } = useArrayName();
   const { fields, addField, updateField, removeField } = useField();
-  const { generatedJson, setGeneratedJson } = useGeneratedJson();
-  const generateJson = () => {
-    const TranceJsonServerObject: JsonType = {
-      [arrayName]: [
-        fields.reduce((acc, field) => {
-          if (field.key) {
-            if (field.type === "number") {
-              acc[field.key] = Number(field.value);
-            } else if (field.type === "boolean") {
-              acc[field.key] = field.value === "true";
-            } else {
-              acc[field.key] = field.value;
-            }
-          }
-          return acc;
-          // eslint-disable-next-line
-        }, {} as Record<string, any>),
-      ],
-    };
-    setGeneratedJson(JSON.stringify(TranceJsonServerObject, null, 2));
-  };
+  const { generateJson, jsonData } = useGeneratedJson();
 
   return (
     <Box maxW='container.xl' mx='auto' py={8}>
@@ -59,7 +39,7 @@ export default function FlexibleJsonGenerator() {
               <Input
                 value={arrayName}
                 onChange={(e: { target: { value: SetStateAction<string> } }) =>
-                  setArrayName(e.target.value)
+                  handleArrayNameChange(e.target.value as string)
                 }
                 placeholder='配列名を入力'
               />
@@ -90,10 +70,10 @@ export default function FlexibleJsonGenerator() {
             <Button onClick={generateJson} colorScheme='purple' flex={1}>
               JSONを生成
             </Button>
-            <DownloadJson generatedJson={generatedJson} arrayName={arrayName} />
+            <DownloadJson generatedJson={jsonData} arrayName={arrayName} />
           </HStack>
           <Textarea
-            value={generatedJson}
+            value={jsonData}
             readOnly
             placeholder='生成されたJSONがここに表示されます'
             minH='300px'
