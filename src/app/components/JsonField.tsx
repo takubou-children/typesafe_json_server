@@ -1,3 +1,4 @@
+"use client";
 import { DeleteIcon } from "@yamada-ui/lucide";
 import {
   VStack,
@@ -7,10 +8,19 @@ import {
   IconButton,
 } from "@yamada-ui/react";
 import React from "react";
-import { useField } from "../hooks/useField";
+import type { Field } from "../types/field";
 
-export const JsonField = () => {
-  const { fields, updateField, removeField } = useField();
+interface JsonFieldProps {
+  fields: Field[];
+  updateField: (index: number, field: "key" | "type", value: string) => void;
+  removeField: (index: number) => void;
+}
+
+export const JsonField: React.FC<JsonFieldProps> = ({
+  fields,
+  updateField,
+  removeField,
+}) => {
   return (
     <>
       <VStack spacing={4}>
@@ -29,7 +39,6 @@ export const JsonField = () => {
               onChange={(e: { target: { value: string } }) =>
                 updateField(index, "type", e.target.value)
               }
-              isDisabled={index === 0}
             >
               <option value='string'>文字列</option>
               <option value='number'>数値</option>

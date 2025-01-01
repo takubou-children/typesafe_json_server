@@ -23,7 +23,7 @@ import { DownloadJson } from "./components/DownloadJson";
 import { JsonField } from "./components/JsonField";
 export default function FlexibleJsonGenerator() {
   const [arrayName, setArrayName] = useState("items");
-  const { fields, addField } = useField();
+  const { fields, addField, updateField, removeField } = useField();
   const { generatedJson, setGeneratedJson } = useGeneratedJson();
   const generateJson = () => {
     const TranceJsonServerObject: JsonType = {
@@ -69,7 +69,11 @@ export default function FlexibleJsonGenerator() {
                 <Heading size='md'>フィールド</Heading>
               </CardHeader>
               <CardBody>
-                <JsonField />
+                <JsonField
+                  fields={fields}
+                  updateField={updateField}
+                  removeField={removeField}
+                />
               </CardBody>
             </Card>
             <Button

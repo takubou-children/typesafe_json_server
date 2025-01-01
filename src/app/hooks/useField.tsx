@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Field, ValueType } from "../types/field";
 import { generateRandomString, generateSampleValue } from "./useGeneratedJson";

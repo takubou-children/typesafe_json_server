@@ -1,6 +1,5 @@
 import { Button } from "@yamada-ui/react";
 import { JsonType } from "../types/field";
-import { gen_zod } from "@/templates/zod";
 type PropsType = {
   arrayName: string;
   generatedJson: string;
@@ -26,7 +25,6 @@ const DownloadJson = (props: PropsType) => {
     try {
       const jsonObject = JSON.parse(generatedJson);
       downloadJson(jsonObject, arrayName);
-      gen_zod(generatedJson);
     } catch (error) {
       console.error("Invalid JSON:", error);
       alert("無効なJSON形式です。");
