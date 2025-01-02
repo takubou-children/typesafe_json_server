@@ -1,5 +1,4 @@
-"use client";
-
+import React from "react";
 import { SetStateAction } from "react";
 import {
   Button,
@@ -16,11 +15,11 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { PlusIcon } from "@yamada-ui/lucide";
-import { useField } from "@/hooks/useField";
-import { useGeneratedJson } from "@/useGeneratedJson";
-import { DownloadJson } from "@/DownloadJson";
-import { JsonField } from "@/components/JsonField";
-import { useArrayName } from "@/hooks/useArrayName";
+import { useArrayName } from "../feature/setup/hooks/useArrayName";
+import { useField } from "../feature/setup/hooks/useField";
+import { useGeneratedJson } from "../feature/setup/hooks/useGeneratedJson";
+import { DownloadJson } from "../feature/setup/components/DownloadJson";
+import { JsonField } from "../feature/setup/components/JsonField";
 export default function Setup() {
   const { arrayName, handleArrayNameChange } = useArrayName();
   const { fields, addField, updateField, removeField } = useField();
@@ -33,7 +32,7 @@ export default function Setup() {
           <Heading size='lg'>JSON_Serverジェネレーター</Heading>
         </CardHeader>
         <CardBody>
-          <VStack spacing={8}>
+          <VStack>
             <HStack w='full'>
               <Text>配列名：</Text>
               <Input
