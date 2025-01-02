@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Field, ValueType } from "../types/field";
-import { generateRandomString, generateSampleValue } from "./useGeneratedJson";
+import { generateSampleValue } from "../util/sampleValue";
+import { generateRandomString } from "../util/randomString";
 
 export const useField = () => {
   const [fields, setFields] = useState<Field[]>([

@@ -16,12 +16,12 @@ import {
   Text,
 } from "@yamada-ui/react";
 import { PlusIcon } from "@yamada-ui/lucide";
-import { useField } from "./hooks/useField";
-import { useGeneratedJson } from "./hooks/useGeneratedJson";
-import { DownloadJson } from "./components/DownloadJson";
-import { JsonField } from "./components/JsonField";
-import { useArrayName } from "./hooks/useArrayName";
-export default function FlexibleJsonGenerator() {
+import { useField } from "@/hooks/useField";
+import { useGeneratedJson } from "@/useGeneratedJson";
+import { DownloadJson } from "@/DownloadJson";
+import { JsonField } from "@/components/JsonField";
+import { useArrayName } from "@/hooks/useArrayName";
+export default function Setup() {
   const { arrayName, handleArrayNameChange } = useArrayName();
   const { fields, addField, updateField, removeField } = useField();
   const { generateJson, jsonData } = useGeneratedJson();
