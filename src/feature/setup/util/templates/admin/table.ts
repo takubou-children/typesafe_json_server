@@ -1,5 +1,4 @@
-import { JSONObject } from "@/app/types/json";
-
+import { JSONObject } from "../../../types/json";
 export function generateTableComponent(
   json: JSONObject
   //   outputFileName: string

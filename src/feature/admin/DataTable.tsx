@@ -1,6 +1,7 @@
 import React from "react";
-import { Button } from "@yamada-ui/react";
+import { Button, Center } from "@yamada-ui/react";
 import { useNavigate } from "react-router-dom";
+import { Table } from "@yamada-ui/lucide";
 const data = [
   "id",
   "title",
@@ -56,7 +57,7 @@ export const DataTable = () => {
             backgroundColor: "#ffa9a9",
           }}
           onClick={() => {
-            deleteMovie(info.row.original.id);
+            // deleteMovie(info.row.original.id);
             window.location.reload();
           }}
         >
@@ -77,7 +78,7 @@ export const DataTable = () => {
           boxSizing: "border-box",
         }}
       >
-        <Table columns={columns} data={movies} />
+        <Table columns={columns} data={data} />
       </Center>
     </>
   );
