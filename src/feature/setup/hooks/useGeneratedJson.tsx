@@ -1,4 +1,3 @@
-"use client";
 import { useState } from "react";
 import { JsonType } from "../types/field";
 import { useField } from "./useField";

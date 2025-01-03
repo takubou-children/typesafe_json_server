@@ -8,6 +8,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/setup' element={<Setup />} />
+      <Route path='/admin' element={<div>admin</div>} />
       <Route path='*' element={<div>404</div>} />
     </Routes>
   );
