@@ -6,7 +6,6 @@ import {
   userListResponse,
 } from "./schema";
 import { getRoute, postRoute, putRoute, deleteRoute } from "../../util";
-import { getListQuery } from "../../schema/query";
 
 const UserCreateRoute = postRoute({
   path: "users",
@@ -19,7 +18,6 @@ const UserCreateRoute = postRoute({
 
 const UserAllGetRoute = getRoute({
   path: "users",
-  querySchema: getListQuery,
   responsesSchema: userListResponse,
   tags: "User",
   summary: "user全取得",
